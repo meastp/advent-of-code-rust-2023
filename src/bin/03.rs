@@ -1,5 +1,4 @@
 use itertools::Itertools;
-use std::cmp;
 
 advent_of_code::solution!(3);
 
@@ -15,11 +14,7 @@ pub fn part_one(input: &str) -> Option<u32> {
     let arr: Vec<Vec<char>> = input.lines().map(|l| l.chars().collect()).collect();
     //println!("{:?}", arr);
 
-    let numbers: Vec<Number> = Vec::new();
-
     for (row_idx, row) in input.lines().enumerate() {
-        let mut num: Option<Number>;
-
         let mut iter = row.chars().enumerate().peekable();
 
         let iter_ref = iter.by_ref();
@@ -70,7 +65,7 @@ pub fn part_one(input: &str) -> Option<u32> {
                     }
                 }
 
-                if (has_adjacent_sign) {
+                if has_adjacent_sign {
                     total += nums.parse::<u32>().unwrap();
                 }
             }
@@ -173,10 +168,10 @@ pub fn part_two(input: &str) -> Option<u32> {
     let groups = numbers
         .into_iter()
         .unique()
-        .group_by(|(row_idx, idx, num)| (row_idx.clone(), idx.clone()));
+        .group_by(|(row_idx, idx, _num)| (row_idx.clone(), idx.clone()));
 
-    for (key, items) in groups.into_iter() {
-        let mut local_numbers: Vec<u32> = items.map(|(_row_idx, _idx, num)| num).collect();
+    for (_key, items) in groups.into_iter() {
+        let local_numbers: Vec<u32> = items.map(|(_row_idx, _idx, num)| num).collect();
 
         let mut tot: u32 = 1;
         if local_numbers.len() == 2 {

@@ -22,7 +22,7 @@ impl FromStr for Card {
         let mut groups = s.split('|');
 
         // winning
-        for ss in groups.next()
+        if let Some(ss) = groups.next()
         {
             for n in ss.trim().split(' ').filter(|&s| !s.is_empty() )
             {
@@ -31,7 +31,7 @@ impl FromStr for Card {
         }
         
         // numbers
-        for ss in groups.next()
+        if let Some(ss) = groups.next()
         {
             for n in ss.trim().split(' ').filter(|&s| !s.is_empty() )
             {
@@ -51,7 +51,7 @@ pub fn part_one(input: &str) -> Option<u32> {
     {
         let mut l = line.split(':');
 
-        if let Some(heading) = l.next()
+        if let Some(_heading) = l.next()
         {
             //let _id: u32 = heading.strip_prefix("Card ").unwrap().parse().unwrap();
         }
@@ -61,7 +61,7 @@ pub fn part_one(input: &str) -> Option<u32> {
             let card = Card::from_str(card_input).unwrap();
         
             let base: u32 = 2;
-            if(card.count > 0)
+            if card.count > 0
             {
                 total += base.pow(card.count - 1);
             }
@@ -78,7 +78,7 @@ pub fn part_two(input: &str) -> Option<u32> {
     {
         let mut l = line.split(':');
 
-        if let Some(heading) = l.next()
+        if let Some(_heading) = l.next()
         {
             //let _id: u32 = heading.strip_prefix("Card ").unwrap().parse().unwrap();
         }
